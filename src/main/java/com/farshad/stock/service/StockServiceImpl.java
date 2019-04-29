@@ -10,6 +10,8 @@ import com.farshad.stock.model.Stock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
@@ -36,9 +38,10 @@ public class StockServiceImpl implements StockService{
 
     /**
      * Creates a new stock
-     * <br> if createStockRequest is null or any error in mapping processes null will be returned
+     * <br> If createStockRequest is null or any error happens during mapping process null will be returned
      * @param createStockRequest
      * @return stockDto
+     * @throws DataAccessException If an exception occurs while saving
      */
     @Override
     @Transactional
@@ -58,19 +61,20 @@ public class StockServiceImpl implements StockService{
     }
 
     /**
-     * Updates an existing stock
-     * <br> First validation phase should be done
-     * then load and then save method of repository will be called
+     * Updates currentPrice of an existing stock
+     * <br>First load and then save method of repository will be called
+     * @param id
      * @param updateStockPriceRequest
      * @return stockDto
-     * @throws StockDataBusinessException if validation fails and no change in price
+     * @throws StockDataBusinessException If validation fails and no change in price
+     * @throws DataAccessException If an exception occurs while saving
      */
     @Override
     @Transactional
-    public StockDto updatePrice(Long stockId,UpdateStockPriceRequest updateStockPriceRequest){
-        logger.debug("Update Price " + updateStockPriceRequest + " with Id=" + stockId);
+    public StockDto updatePrice(Long id,UpdateStockPriceRequest updateStockPriceRequest){
+        logger.debug("Update Price " + updateStockPriceRequest + " with Id=" + id);
         StockDto stockDto = null;
-            Stock stockFetched = stockRepository.getOne(stockId);
+            Stock stockFetched = stockRepository.getOne(id);
             logger.debug("stockFetched " + stockFetched);
             /**
              * checking that a stock exists with this id
@@ -97,6 +101,11 @@ public class StockServiceImpl implements StockService{
         return stockDto;
     }
 
+    /**
+     * Delete a stock with id
+     * @param id
+     * @throws EmptyResultDataAccessException If there is no stock with id to delete
+     */
     @Override
     @Transactional
     public void deleteById(Long id) {
@@ -105,6 +114,10 @@ public class StockServiceImpl implements StockService{
         logger.debug("Deleted ");
     }
 
+    /**
+     * Provides a list of all existing stocks
+     * @return stockDtoList
+     */
     @Override
     public List<StockDto> retrieveAll(){
         logger.debug("Retrieve all stocks");
@@ -114,6 +127,11 @@ public class StockServiceImpl implements StockService{
         return stockDtoList;
     }
 
+    /**
+     * Provides a stock with id
+     * @param id
+     * @return stockDto
+     */
     @Override
     public StockDto getById(Long id) {
         logger.debug("Get by id " + id);
@@ -122,8 +140,4 @@ public class StockServiceImpl implements StockService{
         StockDto stockDto = stockMapper.convert(stock);
         return stockDto;
     }
-
-
-
-
 }
