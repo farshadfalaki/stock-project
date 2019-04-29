@@ -1,5 +1,5 @@
 # stock-project
-Challenge App to demonstrates a stocks project using Spring Boot, JPA, Thymeleaf and H2 in-memory database.
+Challenge App to demonstrates a stocks project using Spring Boot, JPA, Thymeleaf, H2 in-memory database and Java8.
 
 #Installation
 This app requires Maven to build, run and deploy.
