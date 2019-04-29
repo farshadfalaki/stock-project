@@ -24,18 +24,17 @@ Get a stock by id
 URL: http://localhost:8080/api/stocks/{id}  
 Method: GET  
 
-Create Stock 
-URL: http://localhost:8080/api/stocks
-Method: POST
-Body: { "name":"TestCompany", "currentPrice": 23.4 }
+Create Stock  
+URL: http://localhost:8080/api/stocks  
+Method: POST  
+Body: { "name":"TestCompany", "currentPrice": 23.4 }  
+
+Update Stock Price by Id  
+URL: http://localhost:8080/api/stocks/{id}  
+Method: PUT  
+Body: { "currentPrice": 12.3 }  
 
 
-Update Stock Price by Id
-URL: http://localhost:8080/api/stocks/{id}
-Method: PUT
-Body: { "currentPrice": 12.3 }
-
-
-Delete Stock by Id
-URL: http://localhost:8080/api/stocks/{id}
+Delete Stock by Id  
+URL: http://localhost:8080/api/stocks/{id}  
 Method: DELETE
