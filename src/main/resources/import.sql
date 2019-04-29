@@ -1,0 +1,5 @@
+insert into stock (id,name,current_price,last_update) values (1,'Nissan',23.3,CURRENT_TIMESTAMP())
+insert into stock (id,name,current_price,last_update) values (2,'Kia',21.1,CURRENT_TIMESTAMP())
+insert into stock (id,name,current_price,last_update) values (3,'Renault',31.9,CURRENT_TIMESTAMP())
+insert into stock (id,name,current_price,last_update) values (4,'BMW',71.9,CURRENT_TIMESTAMP())
+insert into stock (id,name,current_price,last_update) values (5,'Toyota',3.9,CURRENT_TIMESTAMP())

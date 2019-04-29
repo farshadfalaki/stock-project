@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <title>Stocks List</title>
+    </head>
+    <body>
+        <tbody>
+            <tr th:if="${stocks.empty}">
+                <td colspan="2"> No Stocks Available </td>
+            </tr>
+            <div th:if="${not #lists.isEmpty(stocks)}" align="center">
+                <table class="w3-table w3-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Current Price($)</th>
+                            <th>Last Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="stock : ${stocks}">
+                            <td><span th:text="${stock.id}"> Id </span></td>
+                            <td><span th:text="${stock.name}"> Name </span></td>
+                            <td><span th:text="${stock.currentPrice}">Current Price</span></td>
+                            <td><span th:text="${stock.lastUpdate}">Last Update</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </tbody>
+        <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    </body>
+</html>
