@@ -84,15 +84,4 @@ public class Stock {
                 ", lastUpdate=" + lastUpdate +
                 '}';
     }
-
-    public static void main(String[] args) {
-        Date r= new Date();
-        Double d = new Double(34.1);
-        Double d2 = new Double(34.1);
-        Stock s1 = new Stock("s",d,r);
-        Stock s2 = new Stock("s",d2,r);
-        System.out.println(s1.equals(s2));
-    }
-
-
 }
