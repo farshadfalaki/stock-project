@@ -16,27 +16,25 @@ While application starts load data from import.sql file to database including fi
 #Stocks API
 If you want to access the API resources, use the mapping listed below.
 
-Retrieve all stocks
-URL: http://localhost:8080/api/stocks
-Method: GET
+Retrieve all stocks  
+URL: http://localhost:8080/api/stocks  
+Method: GET  
 
-Get a stock by id
-URL: http://localhost:8080/api/stocks/{id}
-Method: GET
+Get a stock by id  
+URL: http://localhost:8080/api/stocks/{id}  
+Method: GET  
 
-Create Stock
+Create Stock 
 URL: http://localhost:8080/api/stocks
 Method: POST
-Body:``` 
-{ "name":"TestCompany", "currentPrice": 23.4 }
-```
+Body: { "name":"TestCompany", "currentPrice": 23.4 }
+
 
 Update Stock Price by Id
 URL: http://localhost:8080/api/stocks/{id}
 Method: PUT
-Body: ```
-{ "currentPrice": 12.3 }
-```
+Body: { "currentPrice": 12.3 }
+
 
 Delete Stock by Id
 URL: http://localhost:8080/api/stocks/{id}
