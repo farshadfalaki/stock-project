@@ -14,6 +14,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -135,7 +137,7 @@ public class StockServiceImpl implements StockService{
     @Override
     public StockDto getById(Long id) {
         logger.debug("Get by id " + id);
-        Stock stock = stockRepository.getOne(id);
+        Stock stock = stockRepository.findById(id).orElseThrow(()->new EntityNotFoundException(id+""));
         logger.debug("Found stock " + stock);
         StockDto stockDto = stockMapper.convert(stock);
         return stockDto;

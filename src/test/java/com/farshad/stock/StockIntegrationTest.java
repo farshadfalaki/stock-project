@@ -42,7 +42,7 @@ public class StockIntegrationTest {
                 .create();
     }
     @Test
-    public void retrieveAll_shouldReturnListWithFiveStockDto() throws Exception {
+    public void retrieveAll_ShouldReturnListWithFiveStockDto() throws Exception {
         //given
         //then
         mockMvc.perform(get(STOCK_CONTROLLER_FULL_METHOD_PATH).contentType(MediaType.APPLICATION_JSON))
@@ -53,7 +53,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void create_OneValidCreateStockRequest_shouldReturnStockDto() throws Exception {
+    public void create_OneValidCreateStockRequest_ShouldReturnStockDto() throws Exception {
         //given
         String companyName = "some Company";
         Double currentPrice = 23.1;
@@ -78,7 +78,7 @@ public class StockIntegrationTest {
         ;
     }
     @Test
-    public void create_OneCreateStockRequestWithNullName_shouldReturnBadRequest() throws Exception {
+    public void create_OneCreateStockRequestWithNullName_ShouldReturnBadRequest() throws Exception {
         //given
         String companyName = null;
         Double currentPrice = 23.1;
@@ -93,7 +93,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void create_OneCreateStockRequestWithNullPrice_shouldReturnBadRequest() throws Exception {
+    public void create_OneCreateStockRequestWithNullPrice_ShouldReturnBadRequest() throws Exception {
         //given
         String companyName ="some Company";
         Double currentPrice = null;
@@ -109,7 +109,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void create_oneNullCreateStockRequest_shouldReturnBadRequest() throws Exception {
+    public void create_oneNullCreateStockRequest_ShouldReturnBadRequest() throws Exception {
         //given
         String emptyRequestBody = "{}";
         //then
@@ -122,7 +122,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void getById_OneNonExistingId_shouldReturnBadRequest() throws Exception {
+    public void getById_OneNonExistingId_ShouldReturnBadRequest() throws Exception {
         //given
         Long id = 146l;
         //then
@@ -133,9 +133,20 @@ public class StockIntegrationTest {
         ;
     }
 
+    @Test
+    public void getById_OneExistingId_ShouldReturn() throws Exception {
+        //given
+        Long id = 1l;
+        //then
+        mockMvc.perform(get(STOCK_CONTROLLER_FULL_METHOD_PATH_FOLLOWING_SLASH + id).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+    }
+
 
     @Test
-    public void getById_createOneStockThenGetIt_shouldReturnStockDto() throws Exception {
+    public void getById_createOneStockThenGetIt_ShouldReturnStockDto() throws Exception {
         //given
         String companyName = "some Company";
         Double currentPrice = 23.1;
@@ -163,9 +174,14 @@ public class StockIntegrationTest {
                 .andExpect(jsonPath("$.current_price",is(createStockRequest.getCurrentPrice())))
                 .andExpect(jsonPath("$.last_update",notNullValue()))
         ;
+
+        mockMvc.perform(delete(STOCK_CONTROLLER_FULL_METHOD_PATH_FOLLOWING_SLASH + stockDtoCreated.getId()).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andDo(print())
+                .andExpect(status().isNoContent())
+        ;
     }
     @Test
-    public void updatePrice_OneUpdateStockPriceRequestWithPriceNotChanged_shouldBadRequest() throws Exception {
+    public void updatePrice_OneUpdateStockPriceRequestWithPriceNotChanged_ShouldBadRequest() throws Exception {
         //given
         Long id = 1l;
         Double newPrice = 23.3;
@@ -180,7 +196,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void updatePrice_OneUpdateStockPriceRequestWithNullPrice_shouldReturnBadRequest() throws Exception {
+    public void updatePrice_OneUpdateStockPriceRequestWithNullPrice_ShouldReturnBadRequest() throws Exception {
         //given
         Long id = 146l;
         Double newPrice = null;
@@ -195,7 +211,7 @@ public class StockIntegrationTest {
     }
 
     @Test
-    public void allMethods_retrieveAllThenCreateOneStockThenUpdatePriceThenGetItThenRetrieveAll_shouldReturnSixStockDto() throws Exception {
+    public void allMethods_retrieveAllThenCreateOneStockThenUpdatePriceThenGetItThenRetrieveAll_ShouldReturnSixStockDto() throws Exception {
         //given
         String companyName = "my Company";
         Double currentPrice = 10.7;

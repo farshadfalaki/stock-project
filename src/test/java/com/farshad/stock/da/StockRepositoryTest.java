@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -45,9 +46,17 @@ public class StockRepositoryTest {
         //when
         Stock persistedStock = stockRepository.save(stock);
         stockRepository.flush();
-        Stock foundedStock = stockRepository.getOne(persistedStock.getId());
+        Stock foundedStock = stockRepository.findById(persistedStock.getId()).orElseThrow(()->new EntityNotFoundException(persistedStock.getId()+""));
         //then
         assertEquals(foundedStock,stock);
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void getOne_NonExistingId_ShouldRaiseEntityNotFoundException(){
+        //given
+        Long id = 1009l;
+        //when
+        stockRepository.findById(id).orElseThrow(()->new EntityNotFoundException(id+""));
     }
 
     @Test(expected = DataAccessException.class)
