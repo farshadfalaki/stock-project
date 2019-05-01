@@ -8,9 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import javax.persistence.EntityNotFoundException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

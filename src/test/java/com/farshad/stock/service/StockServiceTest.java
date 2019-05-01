@@ -268,12 +268,12 @@ public class StockServiceTest {
         Stock existingStock = new Stock(companyName,currentPrice,lastUpdateDate);
         existingStock.setId(id);
         StockDto expectedStockDto = new StockDto(id,companyName,currentPrice,lastUpdateDate);
-        when(stockRepository.getOne(id)).thenReturn(existingStock);
+        when(stockRepository.findById(id)).thenReturn(Optional.of(existingStock));
         when(stockMapper.convert(existingStock)).thenReturn(expectedStockDto);
         //when
         StockDto actualStockDto = stockService.getById(id);
         //then
-        verify(stockRepository,times(1)).getOne(id);
+        verify(stockRepository,times(1)).findById(id);
         verify(stockMapper,times(1)).convert(existingStock);
         assertEquals(expectedStockDto,actualStockDto);
     }
@@ -282,7 +282,8 @@ public class StockServiceTest {
     public void getById_NonExistingId_ShouldRaiseEntityNotFoundException(){
         //given
         Long id = 1000l;
-        when(stockRepository.getOne(id)).thenThrow(new EntityNotFoundException());
+        Stock stockOutput =null;
+        when(stockRepository.findById(id)).thenReturn(Optional.ofNullable(stockOutput));
         //when
         stockService.getById(id);
     }
