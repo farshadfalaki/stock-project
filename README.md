@@ -28,12 +28,12 @@ Method: GET
 Create Stock  
 URL: http://localhost:8080/api/stocks  
 Method: POST  
-Body: { "name":"TestCompany", "currentPrice": 23.4 }  
+Body: { "name":"TestCompany", "current_price": 23.4 }  
 
 Update Stock Price by Id  
 URL: http://localhost:8080/api/stocks/{id}  
 Method: PUT  
-Body: { "currentPrice": 12.3 }  
+Body: { "current_price": 12.3 }  
 
 
 Delete Stock by Id  
